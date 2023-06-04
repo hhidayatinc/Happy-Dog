@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const router = express.Router()
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const crypto = require('crypto');
 
 const app = express();
 const port = 8000;
@@ -28,9 +29,15 @@ db.connect(err => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const generateSecretKey = () => {
+  const secretLength = 32; // Length of the secret key
+  return crypto.randomBytes(secretLength).toString('hex');
+};
+
 // Configure session middleware
+const secretKey = generateSecretKey();
 app.use(session({
-  secret: 'your_secret_key',
+  secret: secretKey,
   resave: false,
   saveUninitialized: true
 }));
