@@ -7,4 +7,10 @@
     <string name="empty">Can\'t be empty!</string>
     <string name="error_email">Email invalid!</string>
     <string name="error_password">At least contain 8 characters</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_article">Article</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
