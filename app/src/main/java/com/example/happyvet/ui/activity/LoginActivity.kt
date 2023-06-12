@@ -8,21 +8,28 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.happyvet.R
 import com.example.happyvet.databinding.LoginLayoutBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var binding: LoginLayoutBinding
     private var isError = true
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = LoginLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        playAnimation()
 
-
+        auth = Firebase.auth
+        setEnable()
 
         binding.etEmail.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -34,15 +41,10 @@ class LoginActivity: AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if(s.toString().isNullOrEmpty()) {
-                    binding.etEmail.error = resources.getString(R.string.empty)
-                    isError = true
-                }
                 if(!Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
                     binding.etEmail.error = resources.getString(R.string.error_email)
-                    isError = true
                 }
-                else isError = false
+                setEnable()
 
             }
         })
@@ -57,25 +59,36 @@ class LoginActivity: AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if(s.toString().isNullOrEmpty()) {
-                    binding.etPassword.error = resources.getString(R.string.empty)
-                    isError = true
-                }
-                if(s.toString().length > 8) {
+                if(s.toString().length < 8) {
                     binding.etPassword.error = resources.getString(R.string.error_password)
-                    isError = true
                 }
-                else isError = false
-
+                setEnable()
             }
         })
+
+        binding.button.setOnClickListener(){
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            binding.progressBar.visibility = View.VISIBLE
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                if (it.isSuccessful){
+                    Toast.makeText(this, "Login Succeed", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+                else {
+                    Toast.makeText(this, "Login Failed: " + it.exception?.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+        }
 
         binding.tvRegister.setOnClickListener(){
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        playAnimation()
+
     }
 
     private fun playAnimation(){
@@ -97,15 +110,7 @@ class LoginActivity: AppCompatActivity() {
         }.start()
     }
 
-    private fun Login(){
-
-        if (isError == true) binding.button.isEnabled = false
-        if (isError == false){
-            binding.button.isEnabled = true
-            //proses loginnya ...
-
-        }
-
-
+    private fun setEnable(){
+        binding.button.isEnabled = binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()
     }
 }

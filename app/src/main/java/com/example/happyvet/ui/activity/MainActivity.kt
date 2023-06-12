@@ -1,5 +1,6 @@
 package com.example.happyvet.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,16 +10,24 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.happyvet.R
 import com.example.happyvet.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
+
+        if(auth.currentUser == null) startActivity(Intent(this, LoginActivity::class.java))
 
         val navView: BottomNavigationView = binding.navView
 
