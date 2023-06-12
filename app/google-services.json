@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "345826257244",
+    "project_id": "happy-vet",
+    "storage_bucket": "happy-vet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345826257244:android:76e198dd06c6191d69f999",
+        "android_client_info": {
+          "package_name": "com.example.happyvet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345826257244-5p4d6onmn46asddgodgidfo16m2d85t6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5IDQCG2smW0LxFrSW1RIIZB1LTlW1Jo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345826257244-5p4d6onmn46asddgodgidfo16m2d85t6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
