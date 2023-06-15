@@ -5,4 +5,5 @@ data class Users(
     val isAdmin: Boolean,
     val nama: String,
     val nomor: String,
+    val image: String,
 )

@@ -12,6 +12,12 @@
     <string name="title_profile">Profile</string>
     <string name="title_camera">Camera</string>
     <string name="title_article">Article</string>
+    <string name="logout_confirm">Are you sure want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="choose_picture">Choose a picture</string>
+    <string name="failed_get_image">Failed to get image</string>
+    <string name="failed_start_cam">Failed to start camera</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="example_article">Anak kucing akan mengeluarkan suara ‘mew’ (bernada tinggi dan
 kurus) untuk meminta bantuan yang sopan. Kemudian akan
