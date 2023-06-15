@@ -149,7 +149,7 @@ class RegisterActivity: AppCompatActivity() {
                     documentReference.set(user).addOnSuccessListener {
                         Toast.makeText(this, "Berhasil ditambahkan", Toast.LENGTH_LONG).show()
                     }
-                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 }
                 else{
                     Toast.makeText(this, "Error: " + it.exception?.message.toString(), Toast.LENGTH_LONG).show()

@@ -1,5 +1,7 @@
 package com.example.happyvet.ui.activity.ui.article
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.happyvet.data.remote.Article
 import com.example.happyvet.databinding.FragmentArticleBinding
+import com.example.happyvet.ui.activity.AddArticleActivity
 import com.example.happyvet.ui.adapter.ArticleAdapter
+import com.example.happyvet.ui.viewmodel.AddArticleViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,6 +46,7 @@ class ArticleFragment : Fragment() {
 
         auth = Firebase.auth
         fStore = Firebase.firestore
+
         val userID = auth.currentUser?.uid.toString()
         val documentReference = fStore.collection("articles").document()
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
@@ -65,6 +70,10 @@ class ArticleFragment : Fragment() {
         articleViewModel.isAdmin.observe(viewLifecycleOwner){
             isAdmin = it
             binding.fabAddArticle.isVisible = isAdmin
+        }
+
+        binding.fabAddArticle.setOnClickListener{
+            startActivity(Intent(context, AddArticleActivity::class.java))
         }
 
 

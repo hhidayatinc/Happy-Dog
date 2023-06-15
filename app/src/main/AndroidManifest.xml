@@ -46,6 +46,9 @@
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.activity.AddArticleActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
