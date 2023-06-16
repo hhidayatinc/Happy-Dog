@@ -8,16 +8,22 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import com.example.happyvet.R
+import com.example.happyvet.data.remote.Users
 import com.example.happyvet.databinding.FragmentProfileBinding
 import com.example.happyvet.ui.activity.EditProfileActivity
 import com.example.happyvet.ui.activity.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private lateinit var user: FirebaseAuth
+    private lateinit var fStore: FirebaseFirestore
 
     private val binding get() = _binding!!
 
@@ -33,12 +39,16 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
 
         user = FirebaseAuth.getInstance()
+        fStore = Firebase.firestore
+        val uid = user.currentUser?.uid.toString()
 
-        if(user.currentUser != null){
-            user.currentUser?.let{
-                binding.tvProfile.text = it.displayName
 
-            }
+        dashboardViewModel.getUser(uid)
+
+        dashboardViewModel.userData.observe(viewLifecycleOwner){
+            binding.tvProfile.text = it.nama
+
+            binding.imgProfile.load(it.image)
         }
 
         binding.button.setOnClickListener{
@@ -48,7 +58,6 @@ class ProfileFragment : Fragment() {
         binding.editProfile.setOnClickListener {
             val intent = Intent(getActivity(), EditProfileActivity::class.java)
             getActivity()?.startActivity(intent)
-            activity?.finish()
         }
 
         return root

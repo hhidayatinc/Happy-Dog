@@ -21,26 +21,29 @@ class AddArticleViewModel: ViewModel() {
 
 
     fun uploadArticle(title: String, artikel: String, kategori: String, date: String, pic: Uri){
-
-        val article= hashMapOf(
-            "title" to title,
-            "artikel" to artikel,
-            "kategori" to kategori,
-            "date" to date
-        )
-        fStore.collection("articles")
-            .document()
-            .set(article)
+        storage.getReference("articles/$title.jpg")
+            .putFile(pic)
             .addOnSuccessListener {
-                storage.getReference("articles/$title")
-                    .putFile(pic)
-                    .addOnSuccessListener {
-                        stMessage.value = "Berhasil menambahkan artikel"
-                    }
+                storage.getReference("articles/$title.jpg").downloadUrl.addOnSuccessListener {
+                    val image = it.toString()
+                    val article= hashMapOf(
+                        "title" to title,
+                        "artikel" to artikel,
+                        "kategori" to kategori,
+                        "date" to date,
+                        "image" to image
+                    )
+                    fStore.collection("articles")
+                        .document()
+                        .set(article)
+                        .addOnSuccessListener {
+                            stMessage.value = "Berhasil menambahkan artikel"
+                        }
+                }
+
             }
             .addOnFailureListener {
                 stMessage.value = it.message.toString()
             }
-
     }
 }
