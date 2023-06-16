@@ -21,7 +21,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_camera"
         android:layout_width="122dp"
-        android:layout_height="27dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
@@ -29,26 +29,24 @@
         android:text="Camera"
         android:textColor="#88000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_profile"/>
+        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_gallery"
         android:layout_width="122dp"
-        android:layout_height="27dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/bg_button_media"
         android:text="Gallery"
         android:textColor="#88000000"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/button_camera"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
@@ -57,6 +55,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/bg_button"
         android:text="Done"
         android:textColor="#88000000"
@@ -65,6 +64,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintVertical_bias="0.72" />
+
+    <Button
+        android:id="@+id/btnDokter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="32dp"
+        android:text="Saya dokter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.happyvet.ui.activity.fragment.article
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ class ArticleFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var adapter: ArticleAdapter
     private lateinit var articleArrayList: ArrayList<Article>
+    private lateinit var picArrayList: ArrayList<Uri>
     private var isAdmin = false
 
     private val binding get() = _binding!!
@@ -55,6 +57,10 @@ class ArticleFragment : Fragment() {
 
         articleViewModel.getArticle()
 
+//        articleViewModel.listPict.observe(viewLifecycleOwner){
+//            picArrayList.add(it)
+//        }
+
         articleViewModel.listArticle.observe(viewLifecycleOwner){
             articleArrayList.add(it)
             adapter = ArticleAdapter(articleArrayList)
@@ -62,6 +68,7 @@ class ArticleFragment : Fragment() {
             binding.rvArticle.setHasFixedSize(true)
             binding.rvArticle.adapter = adapter
         }
+
 
         articleViewModel.isUserAdmin(userID)
 
@@ -84,5 +91,6 @@ class ArticleFragment : Fragment() {
 
         return root
     }
+
     }
 

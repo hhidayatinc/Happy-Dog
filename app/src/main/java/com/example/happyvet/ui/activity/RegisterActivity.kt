@@ -144,7 +144,8 @@ class RegisterActivity: AppCompatActivity() {
                         "nama" to nama,
                         "email" to email,
                         "nomor" to nomor,
-                        "isAdmin" to false
+                        "isAdmin" to false,
+                        "image" to "https://firebasestorage.googleapis.com/v0/b/happy-vet.appspot.com/o/users%2Fnilpja5Ny6RSUmafnavXDiXtK7e2?alt=media&token=1526d072-f66f-4c6b-8fe8-a88080679c8b"
                     )
                     documentReference.set(user).addOnSuccessListener {
                         Toast.makeText(this, "Berhasil ditambahkan", Toast.LENGTH_LONG).show()
