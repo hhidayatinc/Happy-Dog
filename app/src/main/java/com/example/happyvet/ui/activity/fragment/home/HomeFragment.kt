@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     var userList = ArrayList<Users>()
+    private lateinit var adapter: HomeAdapter
 
     private val binding get() = _binding!!
 
@@ -34,42 +35,55 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        val layoutManager = LinearLayoutManager(requireActivity())
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        getUsersList()
-        binding.rvList.layoutManager= LinearLayoutManager(getActivity())
+//        getUsersList()
+
+        homeViewModel.getUsers()
+
+        homeViewModel.listUsers.observe(viewLifecycleOwner){
+            userList.add(it)
+            adapter = HomeAdapter(userList)
+            binding.rvList.layoutManager = layoutManager
+            binding.rvList.setHasFixedSize(true)
+            binding.rvList.adapter = adapter
+        }
+//        binding.rvList.layoutManager= LinearLayoutManager(getActivity())
+
 
 
         return root
     }
 
-    fun getUsersList(){
-        val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
-        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
-
-        databaseReference.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear()
-
-                for (dataSnapShot: DataSnapshot in snapshot.children){
-                    val user = dataSnapShot.getValue(Users::class.java)
-                    if (user != null) {
-                        if(user.userId.equals(firebase.uid)){
-                            userList.add(user)
-                        }
-                    }
-                    val homeAdapter = getActivity()?.let { HomeAdapter(it, userList) }
-                    binding.rvList.adapter = homeAdapter
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(getActivity(), error.message, Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
+//    fun getUsersList(){
+//        val firebase : FirebaseUser = FirebaseAuth.getInstance().currentUser!!
+//        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
+//
+//        databaseReference.addValueEventListener(object: ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                userList.clear()
+//
+//                for (dataSnapShot: DataSnapshot in snapshot.children){
+//                    val user = dataSnapShot.getValue(Users::class.java)
+//                    if (user != null) {
+//                        if(user.userId.equals(firebase.uid)){
+//                            userList.add(user)
+//                        }
+//                    }
+//                    adapter = HomeAdapter(userList)
+//                    binding.rvList.adapter = adapter
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(getActivity(), error.message, Toast.LENGTH_SHORT).show()
+//            }
+//
+//        })
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

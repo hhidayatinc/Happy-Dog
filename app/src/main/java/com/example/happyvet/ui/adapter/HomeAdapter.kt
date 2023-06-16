@@ -13,9 +13,11 @@ import com.example.happyvet.data.remote.Users
 import com.example.happyvet.ui.activity.ChatActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
-class HomeAdapter(private val ctx: Context, private val userList: ArrayList<Users>): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val userList: ArrayList<Users>): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
+    private lateinit var ctx: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.ViewHolder {
+        ctx = parent.context
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_chat, parent, false)
         return ViewHolder(view)
     }

@@ -19,16 +19,15 @@ import com.example.happyvet.utils.createFile
 
 class CameraxActivity : AppCompatActivity() {
 
-    private var _binding: ActivityCameraxBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityCameraxBinding
 
     private var imgCapt: ImageCapture? = null
     private var camSelect: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityCameraxBinding.inflate(layoutInflater)
-        setContentView(_binding?.root)
+        binding = ActivityCameraxBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.captureImg.setOnClickListener{
             takePhoto()

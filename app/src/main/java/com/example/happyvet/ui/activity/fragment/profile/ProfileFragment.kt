@@ -25,6 +25,7 @@ class ProfileFragment : Fragment() {
     private lateinit var user: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
 
+
     private val binding get() = _binding!!
 
     override fun onCreateView(

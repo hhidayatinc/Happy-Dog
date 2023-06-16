@@ -15,6 +15,8 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -54,9 +56,7 @@ class ArticleViewModel : ViewModel() {
                     }
 
                 })
-//        listPict.value?.let {
-//            storage.reference.child("articles")
-//        }
+
     }
 
     fun isUserAdmin(uid: String){

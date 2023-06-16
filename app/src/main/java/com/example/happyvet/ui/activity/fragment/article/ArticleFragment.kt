@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.happyvet.data.remote.Article
 import com.example.happyvet.databinding.FragmentArticleBinding
 import com.example.happyvet.ui.activity.AddArticleActivity
+import com.example.happyvet.ui.activity.ui.article.ArticleViewModel
 import com.example.happyvet.ui.adapter.ArticleAdapter
 import com.example.happyvet.ui.viewmodel.AddArticleViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -57,9 +58,6 @@ class ArticleFragment : Fragment() {
 
         articleViewModel.getArticle()
 
-//        articleViewModel.listPict.observe(viewLifecycleOwner){
-//            picArrayList.add(it)
-//        }
 
         articleViewModel.listArticle.observe(viewLifecycleOwner){
             articleArrayList.add(it)

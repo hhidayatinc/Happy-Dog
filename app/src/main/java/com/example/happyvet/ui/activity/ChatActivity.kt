@@ -2,14 +2,18 @@ package com.example.happyvet.ui.activity
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.bumptech.glide.Glide
 import com.example.happyvet.R
 import com.example.happyvet.data.remote.Chat
 import com.example.happyvet.data.remote.Users
 import com.example.happyvet.databinding.ActivityChatBinding
+import com.example.happyvet.ui.activity.fragment.profile.ProfileViewModel
 import com.example.happyvet.ui.adapter.ChatAdapter
+import com.example.happyvet.ui.viewmodel.AddArticleViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -17,12 +21,19 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
     var firebase: FirebaseUser? = null
     var reference: DatabaseReference? = null
+    private lateinit var fStore: FirebaseFirestore
     var chatList = ArrayList<Chat>()
+    private val viewModel by viewModels<ProfileViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,30 +42,32 @@ class ChatActivity : AppCompatActivity() {
 
         binding.rvChat.layoutManager= LinearLayoutManager(this)
 
-        var users = intent.getStringExtra("UserId")
+        fStore = Firebase.firestore
+        var users = intent.getStringExtra("UserId").toString()
         firebase = FirebaseAuth.getInstance().currentUser
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(users!!)
+        reference = FirebaseDatabase.getInstance().getReference("users").child(users)
 
         binding.imgBack.setOnClickListener {
             onBackPressed()
         }
 
-        reference!!.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val user = snapshot.getValue(Users::class.java)
-                binding.tvName.text = user!!.nama
-                if(user.image == ""){
-                    binding.imgUser.setImageResource(R.drawable.logo_happyvet)
-                }else{
-                    Glide.with(this@ChatActivity).load(user.image).into(binding.imgUser)
-                }
-            }
+        viewModel.getUser(users)
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
+        viewModel.userData.observe(this){
+            binding.imgUser.load(it.image)
+            binding.tvName.text = it.nama
+        }
+//        reference!!.addValueEventListener(object: ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                val user = snapshot.getValue(Users::class.java)
+//
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
 
         binding.btnSend.setOnClickListener {
             var message: String = binding.etChat.text.toString()
@@ -97,11 +110,11 @@ class ChatActivity : AppCompatActivity() {
 
     private fun sendMessage(senderId: String, receiverId: String, message: String){
         var ref: DatabaseReference? = FirebaseDatabase.getInstance().getReference()
-        var hashMap: HashMap<String, String> = HashMap()
-        hashMap.put("senderId", senderId)
-        hashMap.put("receiverId", receiverId)
-        hashMap.put("message", message)
-
+        var hashMap: HashMap<String, String> = hashMapOf(
+            "senderID" to senderId,
+            "receiverId" to receiverId,
+            "message" to message
+        )
         ref!!.child("Chat").push().setValue(hashMap)
     }
 }
