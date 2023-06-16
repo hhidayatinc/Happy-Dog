@@ -1,4 +1,4 @@
-package com.example.happyvet.ui.activity.ui.camera
+package com.example.happyvet.ui.activity.fragment.camera
 
 import android.os.Bundle
 import android.view.LayoutInflater

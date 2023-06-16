@@ -1,4 +1,4 @@
-package com.example.happyvet.ui.activity.ui.profile
+package com.example.happyvet.ui.activity.fragment.profile
 
 import android.content.Intent
 import android.os.Bundle

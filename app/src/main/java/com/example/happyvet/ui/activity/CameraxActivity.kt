@@ -15,7 +15,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.happyvet.R
 import com.example.happyvet.databinding.ActivityCameraxBinding
-import com.example.happyvet.ui.activity.ui.profile.ProfileFragment
 import com.example.happyvet.utils.createFile
 
 class CameraxActivity : AppCompatActivity() {

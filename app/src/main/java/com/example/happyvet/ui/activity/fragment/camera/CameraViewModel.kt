@@ -1,4 +1,4 @@
-package com.example.happyvet.ui.activity.ui.camera
+package com.example.happyvet.ui.activity.fragment.camera
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

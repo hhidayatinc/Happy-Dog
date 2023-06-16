@@ -1,10 +1,9 @@
-package com.example.happyvet.ui.activity.ui.article
+package com.example.happyvet.ui.activity.fragment.article
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.happyvet.data.remote.Article
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
@@ -14,9 +13,6 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 
 class ArticleViewModel : ViewModel() {
     private var fStore: FirebaseFirestore = Firebase.firestore

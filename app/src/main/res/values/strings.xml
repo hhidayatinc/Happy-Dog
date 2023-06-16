@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HappyVet</string>
+    <string name="app_name">Happy Dog</string>
     <string name="didnt_have">Didn\'t have an account?</string>
     <string name="register">Register now!</string>
     <string name="already">Already have an account?</string>

@@ -1,5 +1,6 @@
 package com.example.happyvet.ui.activity
 
+import android.Manifest
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.graphics.BitmapFactory
@@ -8,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import android.Manifest
 import com.example.happyvet.R
 import com.example.happyvet.databinding.ActivityEditProfileBinding
 import com.example.happyvet.utils.rotateImage
